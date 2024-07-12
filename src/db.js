@@ -1,10 +1,10 @@
-var mysql = require('mysql2');
+var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "jarvo",
-  database:'wallmart',
+  host: "database1.ch2k4ecqqjte.eu-north-1.rds.amazonaws.com",
+  user: "admin",
+  password: "samsunga6+",
+  database: 'wallmart',
   port:3306
 
 
