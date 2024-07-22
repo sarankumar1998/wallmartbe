@@ -51,7 +51,6 @@ router.post("/login", async (req, res) => {
 
   const userLogin = "SELECT * FROM users WHERE username = ?";
   con.query(userLogin, [req.body.username], (err, data) => {
-    console.log(data, "datas");
 
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("User not found!");
@@ -95,10 +94,6 @@ router.get("/detail", checkToken, (req, res) => {
   const fil = file.filter((e) => e.id === req.id)
   res.status(200).send({ fil: fil })
 })
-// router.get('/detail', checkToken, (req, res) => {
-//   res.json({ message: 'Protected route accessed successfully' });
-// });
-
 
 
 
