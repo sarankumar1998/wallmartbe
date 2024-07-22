@@ -160,7 +160,7 @@ router.post('/forgot', async (req, res) => {
             port:465,
             secureConnection:false,
             user: "saran07rose@gmail.com",
-            pass: "dydnwqiyqkqovfpd",
+            pass: "uhbzqfbrgjhfvezy",
           },
         });
 
@@ -172,7 +172,7 @@ router.post('/forgot', async (req, res) => {
           from: "saran07rose@gmail.com",
           to: email,
           subject: 'Password Reset',
-          html: `<p>Click <a href="http://localhost:3001/reset/auth/${encodedToken}">here</a> to reset your password.</p>`
+          html: `<p>Click <a href="http://localhost:3000/reset/auth/${encodedToken}">here</a> to reset your password.</p>`
         };
 
         // Send email

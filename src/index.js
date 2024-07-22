@@ -6,7 +6,6 @@ const autho = require("./auth");
 const sports = require("./sportsApi");
 const mail = require("./Mailauth/Mail");
 const mailLogin = require("./MailLogin/MailLogin");
-const pass = require("./Passengers/Passengers");
 const cors = require("cors");
 
 const app = express();
@@ -21,7 +20,6 @@ app.use("/api/v2", autho);
 app.use("/api/v3", sports);
 app.use("/api/v4", mail);
 app.use("/api/v6", mailLogin);
-app.use("/api/v7", pass);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true);
