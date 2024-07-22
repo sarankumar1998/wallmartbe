@@ -44,7 +44,6 @@ Router.get("/profile/users/:id", function (req, res) {
         console.log(error);
         return res.status(500).json(error);
       } else {
-        // below data for object
         res.status(200).send(...results);
       }
     }

@@ -12,29 +12,28 @@ const router = express.Router();
 
 
 router.post("/register", async (req, res) => {
-  // CHECK IF USER ALREADY EXISTS
+  // Check if the user already exists
   const alreadyUser = "SELECT * FROM users WHERE username = ?";
   
   con.query(alreadyUser, [req.body.username], (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
     if (data.length) return res.status(409).json("User already exists!");
 
-    // CREATE A NEW USER
     // Hash the password
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-    const newUser =
-      "INSERT INTO users (`email`,`username`,`password`,`firstName`,`lastName`,`address`,`country`,`dob`,`mobile`, createdOn) VALUE (?)";
+    const newUser = `
+      INSERT INTO users 
+      (email, username, password, dob, country, mobile, createdOn) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
 
     const values = [
       req.body.email,
       req.body.username,
       hashedPassword,
-      req.body.firstName,
-      req.body.lastName,
-      req.body.address,
-      req.body.country,
       req.body.dob,
+      req.body.country,
       req.body.mobile,
       moment().format("YYYY-MM-DD HH:mm:ss"),
     ];
@@ -46,7 +45,7 @@ router.post("/register", async (req, res) => {
       return res.status(200).json("User has been created.");
     });
   });
-});
+})
 
 router.post("/login", async (req, res) => {
 
@@ -105,7 +104,7 @@ router.get("/detail", checkToken, (req, res) => {
 
 router.put("/profile/update/:id", (req, res) => {
   var { id } = req.params;
-  var { email, username, firstName, lastName, address, country, dob, mobile, password } = req.body;
+  var { email, username, country, dob, mobile, password } = req.body;
 
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -125,7 +124,6 @@ router.put("/profile/update/:id", (req, res) => {
 
     var query = `UPDATE users 
                  SET email='${email}', username='${username}', password='${hashedPassword}', 
-                     firstName='${firstName}', lastName='${lastName}', address='${address}', 
                      country='${country}', dob='${dobFormatted}', mobile='${mobile}', 
                      createdOn='${moment().format("YYYY-MM-DD HH:mm:ss")}' 
                  WHERE id=${id}`;
