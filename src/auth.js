@@ -167,7 +167,7 @@ router.post('/forgot', async (req, res) => {
           from: "saran07rose@gmail.com",
           to: email,
           subject: 'Password Reset',
-          html: `<p>Click <a href="http://localhost:3000/reset/auth/${encodedToken}">here</a> to reset your password.</p>`
+          html: `<p>Click <a href="http://ec2-44-204-186-150.compute-1.amazonaws.com:3000/reset/auth/${encodedToken}">here</a> to reset your password.</p>`
         };
 
         // Send email
