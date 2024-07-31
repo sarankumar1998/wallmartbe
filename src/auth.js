@@ -48,24 +48,19 @@ router.post("/register", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-
   const userLogin = "SELECT * FROM users WHERE username = ?";
   con.query(userLogin, [req.body.username], (err, data) => {
-
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("User not found!");
-    let user = data[0]
-    // below command is hashing the password
+    let user = data[0];
     const checkPassword = bcrypt.compareSync(req.body.password, user.password);
-
-    // const checkPassword = (req.body.password, user.password);
     if (!checkPassword) return res.status(400).json("Wrong password or username!");
-
     delete user.password;
     const token = jwt.sign({ id: user.id, username: user.username }, "secretkey", { expiresIn: "1200s" });
     res.status(200).json({ token: token });
   });
 });
+
 
 router.post("/logout", (req, res) => {
   res.status(200).json({ message: "Logout successful" });
@@ -188,7 +183,6 @@ router.post('/forgot', async (req, res) => {
 });
 
 
-// ... (previous code)
 
 router.post('/reset', async (req, res) => {
   try {
